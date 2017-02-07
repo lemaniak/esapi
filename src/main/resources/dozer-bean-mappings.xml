@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+    <configuration>
+        <stop-on-errors>true</stop-on-errors>
+        <date-format>MM/dd/yyyy HH:mm</date-format>
+        <wildcard>true</wildcard>
+        <relationship-type>non-cumulative</relationship-type>
+        <custom-converters>
+            <converter type="com.vicente.mapping.converters.StatusConverter" >
+                <class-a>com.vicente.model.Status</class-a>
+                <class-b>java.lang.String</class-b>
+            </converter>
+            <converter type="com.vicente.mapping.converters.DateConverter" >
+                <class-a>java.util.Date</class-a>
+                <class-b>java.lang.String</class-b>
+            </converter>
+        </custom-converters>
+    </configuration>
+
+    <!--Account-->
+    <mapping map-empty-string="false" map-null="true">
+        <class-a>com.vicente.dto.request.RQNewAccount</class-a>
+        <class-b>com.vicente.model.Account</class-b>
+    </mapping>
+
+    <mapping map-empty-string="false" map-null="true">
+        <class-a>com.vicente.model.Account</class-a>
+        <class-b>com.vicente.dto.response.RSAccount</class-b>
+    </mapping>
+
+    <mapping map-empty-string="false" map-null="true">
+        <class-a>com.vicente.model.Account</class-a>
+        <class-b>com.vicente.dto.request.RQUpdateAccount</class-b>
+    </mapping>
+
+    <mapping map-empty-string="false" map-null="true">
+        <class-a>com.vicente.model.Account</class-a>
+        <class-b>com.vicente.dto.response.RSAuthenticateAccount</class-b>
+    </mapping>
+
+    <mapping map-empty-string="false" map-null="true">
+        <class-a>com.vicente.dto.response.RSAccountMail</class-a>
+        <class-b>com.vicente.model.AccountMail</class-b>
+    </mapping>
+
+    <mapping map-empty-string="false" map-null="true">
+        <class-a>com.vicente.dto.request.RQAccountMail</class-a>
+        <class-b>com.vicente.model.AccountMail</class-b>
+    </mapping>
+
+</mappings>
