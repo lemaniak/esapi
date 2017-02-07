@@ -98,6 +98,14 @@
           <password>clarodeluna</password>
         </configuration>
       </plugin>
+      <!-- CREATE A FULLY FUNCTIONAL JAR FILE-->
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <executable>true</executable>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 </project>
