@@ -162,7 +162,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Boolean activate(String token) throws EsapiValidationException,EsapiException {
-       if(tokenUtils.isExpiredToken(token)){
+       if(tokenUtils.isExpiredToken(cryptoUtils.decrypt(token))){
            return false;
        }else{
            Account tokenAccount = tokenUtils.getAccountFromToken(token);
