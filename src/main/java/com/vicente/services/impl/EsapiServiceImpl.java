@@ -4,6 +4,7 @@ import com.vicente.dto.request.MailType;
 import com.vicente.dto.request.RQEmail;
 import com.vicente.dto.request.RQSendEmail;
 import com.vicente.exception.EsapiException;
+import com.vicente.exception.EsapiValidationException;
 import com.vicente.model.Account;
 import com.vicente.model.AccountMail;
 import com.vicente.services.decl.AccountMailService;
@@ -38,12 +39,16 @@ public class EsapiServiceImpl implements EsapiService {
         Account account = accountService.findByApiKey(rqSendEmail.getApikey());
         AccountMail accountMail = accountMailService.findByEmail(rqSendEmail.getFrom(),account);
 
-        rqSendEmail.setType(MailType.HTML);
-        rqSendEmail.setHost(accountMail.getHost());
-        rqSendEmail.setPort(Integer.parseInt(accountMail.getPort()));
-        rqSendEmail.setUsername(rqSendEmail.getFrom());
-        rqSendEmail.setPassword(cryptoUtils.decrypt(accountMail.getPassword()));
+        if(accountMail==null){
+            throw new EsapiValidationException("esapi.email.from.invalid");
+        }else{
+            rqSendEmail.setType(MailType.HTML);
+            rqSendEmail.setHost(accountMail.getHost());
+            rqSendEmail.setPort(Integer.parseInt(accountMail.getPort()));
+            rqSendEmail.setUsername(rqSendEmail.getFrom());
+            rqSendEmail.setPassword(cryptoUtils.decrypt(accountMail.getPassword()));
 
-        emailService.sendEmail(rqSendEmail);
+            emailService.sendEmail(rqSendEmail);
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.vicente.services.impl;
 
 import com.vicente.dto.request.RQEmail;
+import com.vicente.exception.EsapiException;
 import com.vicente.services.decl.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
@@ -24,7 +25,11 @@ public class EmailServiceImpl implements EmailService {
 
 
     @Override
-    public void sendEmail(RQEmail rqEmail) {
-        jmsTemplate.convertAndSend(EMAIL_QUEUE,rqEmail);
+    public void sendEmail(RQEmail rqEmail) throws EsapiException {
+        try {
+            jmsTemplate.convertAndSend(EMAIL_QUEUE, rqEmail);
+        }catch(Exception ex){
+            throw new EsapiException("esapi.validation.internal.error",ex.getCause());
+        }
     }
 }
